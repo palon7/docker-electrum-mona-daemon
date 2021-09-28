@@ -28,8 +28,8 @@ ENV ELECTRUM_CHECKSUM_SHA512 $CHECKSUM_SHA512
 
 RUN adduser -D $ELECTRUM_USER && \
     apk --no-cache add --virtual build-dependencies gcc musl-dev && \
-    wget https://download.electrum.org/${ELECTRUM_VERSION}/Electrum-${ELECTRUM_VERSION}.tar.gz && \
-    [ "${ELECTRUM_CHECKSUM_SHA512}  Electrum-${ELECTRUM_VERSION}.tar.gz" = "$(sha512sum Electrum-${ELECTRUM_VERSION}.tar.gz)" ] && \
+    wget https://github.com/wakiyamap/electrum-mona/releases/download/${ELECTRUM_VERSION}/Electrum-MONA-${ELECTRUM_VERSION}.tar.gz && \
+    [ "${ELECTRUM_CHECKSUM_SHA512}  Electrum-MONA-${ELECTRUM_VERSION}.tar.gz" = "$(sha512sum Electrum-MONA-${ELECTRUM_VERSION}.tar.gz)" ] && \
     echo -e "**************************\n SHA 512 Checksum OK\n**************************" && \
     pip3 install Electrum-${ELECTRUM_VERSION}.tar.gz && \
     rm -f Electrum-${ELECTRUM_VERSION}.tar.gz && \
@@ -50,4 +50,4 @@ EXPOSE 7000
 
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["electrum"]
+CMD ["electrum-mona"]
