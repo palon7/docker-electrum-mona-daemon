@@ -1,11 +1,13 @@
 version: '3'
 
 services:
-  electrum:
-    build: .
+  electrum-mona:
+    image: palon7/electrum-mona-daemon
     ports:
       - 127.0.0.1:7000:7000
+    volumes: 
+      - ./data:/data
     environment:
       ELECTRUM_USER: electrum
       ELECTRUM_PASSWORD: changeme
-#      TESTNET: False
+      TESTNET: "false"
