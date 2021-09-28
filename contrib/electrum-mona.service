@@ -1,0 +1,16 @@
+[Unit]
+Description=Electrum-mona wallet daemon
+Wants=network.target
+Requires=docker.service
+After=docker.service network.target
+
+[Service]
+TimeoutStartSec=5
+Restart=always
+RestartSec=20s
+ExecStartPre=/usr/bin/docker pull palon7/electrum-mona-daemon
+ExecStart=/usr/bin/docker run --rm --name electrum-mona -p 127.0.0.1:7000:7000 palon7/electrum-mona-daemon
+ExecStop=/usr/bin/docker stop electrum-mona
+
+[Install]
+WantedBy=multi-user.target
