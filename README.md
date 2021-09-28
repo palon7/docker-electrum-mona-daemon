@@ -28,6 +28,7 @@ Running with Docker:
 
 ```bash
 docker run --rm --name electrum-mona \
+    --env TESTNET=false \
     --publish 127.0.0.1:7000:7000 \
     --volume /srv/electrum-mona:/data \
     palon7/electrum-mona-daemon
@@ -54,7 +55,7 @@ docker-compose up
 docker-compose exec electrum-mona electrum-mona getinfo
 docker-compose exec electrum-mona electrum-mona create
 docker-compose exec electrum-mona electrum-mona load_wallet
-curl -u electrum:changeme --data-binary '{"id":"1","method":"listaddresses"}' http://electrum:electrumz@localhost:7000
+curl --data-binary '{"id":"1","method":"listaddresses"}' http://electrum:changeme@localhost:7000
 ```
 
 :exclamation:**Warning**:exclamation:
