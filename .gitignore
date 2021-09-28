@@ -1,0 +1,4 @@
+.DS_Store
+/data
+*.tar.gz
+*.tar.gz.sig
