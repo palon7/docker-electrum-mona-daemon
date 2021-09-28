@@ -19,7 +19,7 @@ LABEL maintainer="palon7@gmail.com" \
 
 ENV ELECTRUM_VERSION $VERSION
 ENV ELECTRUM_USER electrum
-ENV ELECTRUM_PASSWORD electrumz		# XXX: CHANGE REQUIRED!
+ENV ELECTRUM_PASSWORD electrumz
 ENV ELECTRUM_HOME /home/$ELECTRUM_USER
 ENV ELECTRUM_NETWORK mainnet
 
@@ -27,21 +27,23 @@ ENV ELECTRUM_NETWORK mainnet
 ENV ELECTRUM_CHECKSUM_SHA512 $CHECKSUM_SHA512
 
 RUN adduser -D $ELECTRUM_USER && \
-    apk --no-cache add --virtual build-dependencies gcc musl-dev && \
+    apk --no-cache add libsecp256k1 && \
+    apk --no-cache add --virtual build-dependencies gcc musl-dev libffi-dev  && \
     wget https://github.com/wakiyamap/electrum-mona/releases/download/${ELECTRUM_VERSION}/Electrum-MONA-${ELECTRUM_VERSION}.tar.gz && \
     [ "${ELECTRUM_CHECKSUM_SHA512}  Electrum-MONA-${ELECTRUM_VERSION}.tar.gz" = "$(sha512sum Electrum-MONA-${ELECTRUM_VERSION}.tar.gz)" ] && \
     echo -e "**************************\n SHA 512 Checksum OK\n**************************" && \
-    pip3 install Electrum-${ELECTRUM_VERSION}.tar.gz && \
-    rm -f Electrum-${ELECTRUM_VERSION}.tar.gz && \
+    pip3 install cryptography && \
+    pip3 install Electrum-MONA-${ELECTRUM_VERSION}.tar.gz && \
+    rm -f Electrum-MONA-${ELECTRUM_VERSION}.tar.gz && \
     apk del build-dependencies
 
 RUN mkdir -p /data \
-	  ${ELECTRUM_HOME}/.electrum/wallets/ \
-	  ${ELECTRUM_HOME}/.electrum/testnet/wallets/ \
-	  ${ELECTRUM_HOME}/.electrum/regtest/wallets/ \
-	  ${ELECTRUM_HOME}/.electrum/simnet/wallets/ && \
-	ln -sf ${ELECTRUM_HOME}/.electrum/ /data && \
-	chown -R ${ELECTRUM_USER} ${ELECTRUM_HOME}/.electrum /data
+	  ${ELECTRUM_HOME}/.electrum-mona/wallets/ \
+	  ${ELECTRUM_HOME}/.electrum-mona/testnet/wallets/ \
+	  ${ELECTRUM_HOME}/.electrum-mona/regtest/wallets/ \
+	  ${ELECTRUM_HOME}/.electrum-mona/simnet/wallets/ && \
+	ln -sf ${ELECTRUM_HOME}/.electrum-mona/ /data && \
+	chown -R ${ELECTRUM_USER} ${ELECTRUM_HOME}/.electrum-mona /data
 
 USER $ELECTRUM_USER
 WORKDIR $ELECTRUM_HOME
