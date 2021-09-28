@@ -15,15 +15,15 @@ fi
 trap 'pkill -TERM -P1; electrum daemon stop; exit 0' SIGTERM
 
 # Set config
-electrum-mona $FLAGS setconfig rpcuser ${ELECTRUM_USER}
-electrum-mona $FLAGS setconfig rpcpassword ${ELECTRUM_PASSWORD}
-electrum-mona $FLAGS setconfig rpchost 0.0.0.0
-electrum-mona $FLAGS setconfig rpcport 7000
+electrum-mona --offline $FLAGS setconfig rpcuser ${ELECTRUM_USER}
+electrum-mona --offline $FLAGS setconfig rpcpassword ${ELECTRUM_PASSWORD}
+electrum-mona --offline $FLAGS setconfig rpchost 0.0.0.0
+electrum-mona --offline $FLAGS setconfig rpcport 7000
 
 # XXX: Check load wallet or create
 
 # Run application
-electrum-mona $FLAGS daemon start
+electrum-mona $FLAGS daemon
 
 # Wait forever
 while true; do
