@@ -5,7 +5,7 @@
 
 **Electrum-mona client running as a daemon in docker container with JSON-RPC enabled.**
 
-[Electrum-mona client](https://electrum-mona.org/) is light monacoin wallet software operates through supernodes (Electrum-mona server instances actually).
+[Electrum-mona client](https://electrum-mona.org/) is light monacoin wallet software operates through supernodes (ElectrumX instances actually).
 
 Don't confuse with [ElectrumX](https://github.com/kyuupichan/electrumx) that use monacoind and full blockchain data.
 
