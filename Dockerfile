@@ -27,7 +27,7 @@ ENV ELECTRUM_NETWORK mainnet
 ENV ELECTRUM_CHECKSUM_SHA512 $CHECKSUM_SHA512
 
 RUN apk --no-cache add libsecp256k1 && \
-    apk --no-cache add --virtual build-dependencies gcc musl-dev libffi-dev  && \
+    apk --no-cache add --virtual build-dependencies gcc musl-dev libffi-dev cargo && \
     wget https://github.com/wakiyamap/electrum-mona/releases/download/${ELECTRUM_VERSION}/Electrum-MONA-${ELECTRUM_VERSION}.tar.gz && \
     [ "${ELECTRUM_CHECKSUM_SHA512}  Electrum-MONA-${ELECTRUM_VERSION}.tar.gz" = "$(sha512sum Electrum-MONA-${ELECTRUM_VERSION}.tar.gz)" ] && \
     echo -e "**************************\n SHA 512 Checksum OK\n**************************" && \
